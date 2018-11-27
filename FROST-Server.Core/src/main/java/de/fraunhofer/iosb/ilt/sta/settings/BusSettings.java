@@ -19,7 +19,7 @@ package de.fraunhofer.iosb.ilt.sta.settings;
 
 /**
  *
- * @author jab
+ * @author jab, scf
  */
 public class BusSettings {
 
@@ -51,7 +51,7 @@ public class BusSettings {
     }
 
     private void init(Settings settings) {
-        busImplementationClass = settings.getWithDefault(TAG_IMPLEMENTATION_CLASS, DEFAULT_IMPLEMENTATION_CLASS, String.class);
+        busImplementationClass = settings.get(TAG_IMPLEMENTATION_CLASS, DEFAULT_IMPLEMENTATION_CLASS);
         customSettings = settings;
     }
 

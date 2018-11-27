@@ -24,21 +24,19 @@ package de.fraunhofer.iosb.ilt.sta.settings;
 public class PersistenceSettings {
 
     /**
-     * Tags
+     * Settings
      */
-    private static final String TAG_IMPLEMENTATION_CLASS = "persistenceManagerImplementationClass";
-    private static final String DEFAULT_IMPLEMENTATION_CLASS = "de.fraunhofer.iosb.ilt.sta.persistence.postgres.longid.PostgresPersistenceManagerLong";
-    private static final String TAG_ALWAYS_ORDERBY_ID = "alwaysOrderbyId";
-    private static final String TAG_ID_GENERATION_MODE = "idGenerationMode";
-    private static final String TAG_AUTO_UPDATE_DATABASE = "autoUpdateDatabase";
-    private static final boolean DEFAULT_AUTO_UPDATE_DATABASE = false;
+    private static final Setting IMPLEMENTATION_CLASS = new SettingImp("persistenceManagerImplementationClass", "de.fraunhofer.iosb.ilt.sta.persistence.postgres.longid.PostgresPersistenceManagerLong");
+    private static final Setting ALWAYS_ORDERBY_ID = new SettingImp("alwaysOrderbyId", true);
+    private static final Setting ID_GENERATION_MODE = new SettingImp("idGenerationMode", "ServerGeneratedOnly");
+    private static final Setting AUTO_UPDATE_DATABASE = new SettingImp("autoUpdateDatabase", false);
 
     /**
      * Fully-qualified class name of the PersistenceManager implementation class
      */
     private String persistenceManagerImplementationClass;
-    private boolean alwaysOrderbyId = true;
-    private String idGenerationMode = "ServerGeneratedOnly";
+    private boolean alwaysOrderbyId;
+    private String idGenerationMode;
     private boolean autoUpdateDatabase;
     /**
      * Extension point for implementation specific settings
@@ -53,10 +51,10 @@ public class PersistenceSettings {
     }
 
     private void init(Settings settings) {
-        persistenceManagerImplementationClass = settings.get(TAG_IMPLEMENTATION_CLASS, DEFAULT_IMPLEMENTATION_CLASS);
-        alwaysOrderbyId = settings.getBoolean(TAG_ALWAYS_ORDERBY_ID, alwaysOrderbyId);
-        idGenerationMode = settings.get(TAG_ID_GENERATION_MODE, idGenerationMode);
-        autoUpdateDatabase = settings.getBoolean(TAG_AUTO_UPDATE_DATABASE, DEFAULT_AUTO_UPDATE_DATABASE);
+        persistenceManagerImplementationClass = settings.get(IMPLEMENTATION_CLASS.getKey(), IMPLEMENTATION_CLASS.getDefault());
+        alwaysOrderbyId = settings.getBoolean(ALWAYS_ORDERBY_ID.getKey(), ALWAYS_ORDERBY_ID.getDefaultBool());
+        idGenerationMode = settings.get(ID_GENERATION_MODE.getKey(), ID_GENERATION_MODE.getDefault());
+        autoUpdateDatabase = settings.getBoolean(AUTO_UPDATE_DATABASE.getKey(), AUTO_UPDATE_DATABASE.getDefaultBool());
         customSettings = settings;
     }
 

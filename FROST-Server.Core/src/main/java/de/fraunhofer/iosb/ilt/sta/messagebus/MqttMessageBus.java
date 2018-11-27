@@ -30,7 +30,6 @@ import de.fraunhofer.iosb.ilt.sta.settings.annotation.DefaultValue;
 import de.fraunhofer.iosb.ilt.sta.settings.annotation.DefaultValueInt;
 import de.fraunhofer.iosb.ilt.sta.util.ProcessorHelper;
 import de.fraunhofer.iosb.ilt.sta.util.StringHelper;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -125,7 +124,7 @@ public class MqttMessageBus implements MessageBus, MqttCallback, ConfigDefaults 
         if (broker == null || broker.isEmpty()) {
             LOGGER.error("Broker url should be configured in option bus.{}", TAG_MQTT_BROKER);
         }
-        topicName = customSettings.getWithDefault(TAG_TOPIC_NAME, defaultValue("TAG_TOPIC_NAME"), String.class);
+        topicName = customSettings.get(TAG_TOPIC_NAME, defaultValue("TAG_TOPIC_NAME"));
         qosLevel = customSettings.getInt(TAG_QOS_LEVEL, defaultValueInt("TAG_QOS_LEVEL"));
         maxInFlight = customSettings.getInt(TAG_MAX_IN_FLIGHT, defaultValueInt("TAG_MAX_IN_FLIGHT"));
         connect();

@@ -155,31 +155,8 @@ public class Settings {
         throw new PropertyMissingException(key);
     }
 
-    public void set(String name, String value) {
-        properties.put(getPropertyKey(name), value);
-    }
-
-    public <T> T get(String name, Class<T> returnType) {
-        if (returnType.equals(Integer.class)) {
-            return returnType.cast(getInt(name));
-        } else if (returnType.equals(Long.class)) {
-            return returnType.cast(getLong(name));
-        } else if (returnType.equals(Double.class)) {
-            return returnType.cast(getDouble(name));
-        } else if (returnType.equals(Boolean.class)) {
-            return returnType.cast(getBoolean(name));
-        }
-        return returnType.cast(get(name));
-    }
-
-    public <T> T getWithDefault(String name, T defaultValue, Class<T> returnType) {
-        try {
-            return get(name, returnType);
-        } catch (Exception ex) {
-            LOGGER.info(NOT_SET_USING_DEFAULT_VALUE, prefix, name, defaultValue);
-            LOGGER.trace(ERROR_GETTING_SETTINGS_VALUE, ex);
-        }
-        return defaultValue;
+    public void set(Setting setting, String value) {
+        properties.put(getPropertyKey(setting.getKey()), value);
     }
 
     /**

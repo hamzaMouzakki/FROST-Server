@@ -207,13 +207,13 @@ public class CoreSettings {
             LOGGER.error("Failed to find tempPath: {}.", tempPath);
             throw new IllegalArgumentException("tempPath '" + tempPath + "' does not exist", exc);
         }
-        apiVersion = settings.getWithDefault(TAG_API_VERSION, DEFAULT_API_VERSION, String.class);
+        apiVersion = settings.get(TAG_API_VERSION, DEFAULT_API_VERSION);
         serviceRootUrl = URI.create(settings.get(CoreSettings.TAG_SERVICE_ROOT_URL) + "/" + apiVersion).normalize().toString();
-        useAbsoluteNavigationLinks = settings.getWithDefault(TAG_USE_ABSOLUTE_NAVIGATION_LINKS, DEFAULT_USE_ABSOLUTE_NAV_LINKS, Boolean.class);
-        countDefault = settings.getWithDefault(TAG_DEFAULT_COUNT, DEFAULT_COUNT, Boolean.class);
-        topDefault = settings.getWithDefault(TAG_DEFAULT_TOP, DEFAULT_MAX_TOP, Integer.class);
-        topMax = settings.getWithDefault(TAG_MAX_TOP, DEFAULT_MAX_TOP, Integer.class);
-        dataSizeMax = settings.getWithDefault(TAG_MAX_DATASIZE, DEFAULT_MAX_DATASIZE, Long.class);
+        useAbsoluteNavigationLinks = settings.getBoolean(TAG_USE_ABSOLUTE_NAVIGATION_LINKS, DEFAULT_USE_ABSOLUTE_NAV_LINKS);
+        countDefault = settings.getBoolean(TAG_DEFAULT_COUNT, DEFAULT_COUNT);
+        topDefault = settings.getInt(TAG_DEFAULT_TOP, DEFAULT_MAX_TOP);
+        topMax = settings.getInt(TAG_MAX_TOP, DEFAULT_MAX_TOP);
+        dataSizeMax = settings.getLong(TAG_MAX_DATASIZE, DEFAULT_MAX_DATASIZE);
 
         mqttSettings = new MqttSettings(new Settings(settings.getProperties(), PREFIX_MQTT, false));
         persistenceSettings = new PersistenceSettings(new Settings(settings.getProperties(), PREFIX_PERSISTENCE, false));
